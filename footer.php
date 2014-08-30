@@ -1,3 +1,4 @@
+<!-- footer -->
 	</div>
 	<div id="footer">
         <table>
