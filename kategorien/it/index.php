@@ -48,7 +48,7 @@ Das hier ist ein kleiner Platzhaltertext. Er soll nur einmal
 	require_once("../../funktionen/saveComment.php");
 ?>
 	<a href="javascript:changeCommentState()" id="comment" style="display: none">Kommentieren</a>
-	<form method="POST" action="./it.php#commentTable">
+	<form method="POST" action="./index.php#commentTable">
 			<table id="commentTable">
 				<tr>
 					<td class="Label">

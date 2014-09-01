@@ -6,7 +6,7 @@
 		private $comment = array(); // List of returned Comments by SQL-Query
 		private $release = array();	// List of returned Releases by SQl-Query 
 		private $mysqli; // mysqli-Object initialized by constructor
-		private $NumOfReturnedComments = 2; // How many comments the SQL-Query should return
+		private $NumOfReturnedComments = 0; // How many comments the SQL-Query had returned
 		
 		/* Prepare the whole mysqli-Object in the constructor for easy usage
 		 * Stop if any error occures */
@@ -18,8 +18,7 @@
 			if(is_numeric($articleID)){ 
 				$this->articleID = $articleID;
 			}else{
-				echo ("Es ist ein Fehler bei der Abfrage aufgetreten. Bitte versuchen Sie es sp&auml;ter" . 
-				" noch einmal und melden Sie die Fehlernummer unter: roehl.aaron@yahoo.com. Fehlernummer: 1");
+				echo ("Es ist ein Fehler bei der Abfrage aufgetreten. Bitte versuchen Sie es sp&auml;ter noch einmal.<br />");
 				return -1;
 			}
 			
@@ -27,13 +26,21 @@
 			
 			/*
 			 * create new mysqli object with values from 'dbvars.php' and check for errors
+			 * if there are any exit constructor and stop commentfunction
 			 */
 			$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
-			if($mysqli->connect_errno) die("Verbindung zur Datenbank fehlgeschlagen.");
+
+			 if($mysqli->connect_errno){
+                                echo("Die Verbindung zur Kommentar-Datenbank konnte nicht hergestellt werden.<br />");
+                                return -1;                      
+                        }
+
 			
 			/*
 			 * save parts of the comments from mysql-query into comment-part-arrays 
 			 */
+			$this->NumOfReturnedComments = 2; // how many comments we would like to display: used in SQL-Querys Limit
+			// This value is going to be overwritten with number of returned comments at bottom
 			if($SelectCommentPartsPreparedQuery = $mysqli->prepare("SELECT 
 																pseudonym, 
 																heading, 
@@ -47,6 +54,10 @@
 			{
 				$SelectCommentPartsPreparedQuery->bind_param("i", $this->articleID); // set articleID as integer to query
 				$SelectCommentPartsPreparedQuery->execute();
+				
+				// save number of returned Results for output (output is done with for-loop until reached NumOfReturnedComments)
+				$this->NumOfReturnedComments = $SelectCommentPartsPreparedQuery->num_rows;
+
 				$SelectCommentPartsPreparedQuery->bind_result($pseudonym, $heading, $comment); // define comment-parts from query
 				/*
 				 * save as many items as returned by query into comment-parts-arrays 

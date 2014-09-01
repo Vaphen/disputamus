@@ -8,16 +8,19 @@ class RandArticle {
  	function __construct() {
  		require_once("dbvars.php"); // file includes mysql connection infos
 		$connection = new mysqli(HOST, USER, PASSWORD, DATABASE);
-		if($connection->connect_error)
-			exit("Es konnte keine Verbindung zur Datenbank hergestellt werden.");	
-		
+		if($connection->connect_error){
+			echo("Es konnte keine Verbindung zur Datenbank hergestellt werden.<br />");	
+			return -1;
+		}
 		/* 
 		 * count number of articles for random selection
 		 */
 // TODO: Is it possible to combine the count with the final query??
 		$res_count = $connection->query("SELECT COUNT(*) FROM `Articles`;");
-		if($res_count === false)
-			exit("Die Anfrage konnte nicht bearbeitet werden.");
+		if($res_count === false){
+			echo("Die Anfrage konnte nicht bearbeitet werden.<br />");
+			return -1;
+		}
 		$count = $res_count->fetch_row();			
 		$rand = rand(0, ($count[0] - 1) );
 		
