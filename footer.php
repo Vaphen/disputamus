@@ -1,5 +1,4 @@
-<!-- footer -->
-	</div>
+</div>
 	<div id="footer">
         <table>
           <thead>
