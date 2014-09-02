@@ -14,10 +14,13 @@
 ?>
 <div id="main">
 <?php
+	$rand = rand(0, 2);
+	$category = array("IT", "Politics", "Other");
+	
 	include_once("../funktionen/randContent.php");
-	$randContent = new RandArticle();
+	$randContent = new RandArticle($category[$rand]); // get random Article of category given as parameter
 	include_once("../funktionen/getComment.php");
-	$Comments = new GetComment(1);
+	$Comments = new GetComment($category[$rand], 1); // first param: category of comment, second: articleID
 ?>
 	<article>
 	<header class="highlight">	

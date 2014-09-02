@@ -5,9 +5,10 @@ class RandArticle {
 	private $randArticleTeaser = "Leider steht kein Teaser zur verf&uuml;gung."; // define teaser in case of error
 	private $randArticleContent = "Leider steht kein Inhalt zur Verf&uuml;gung"; // define content in case of error
 	
- 	function __construct() {
+ 	function __construct($category) {
  		require_once("dbvars.php"); // file includes mysql connection infos
 		$connection = new mysqli(HOST, USER, PASSWORD, DATABASE);
+		$connection->set_charset("utf8");
 		if($connection->connect_error){
 			echo("Es konnte keine Verbindung zur Datenbank hergestellt werden.<br />");	
 			return -1;
@@ -16,15 +17,16 @@ class RandArticle {
 		 * count number of articles for random selection
 		 */
 // TODO: Is it possible to combine the count with the final query??
-		$res_count = $connection->query("SELECT COUNT(*) FROM `Articles`;");
+		$res_count = $connection->query("SELECT COUNT(*) FROM `" . $category . "_Articles`;");
 		if($res_count === false){
-			echo("Die Anfrage konnte nicht bearbeitet werden.<br />");
+			echo("Die Artikel-Anfrage konnte nicht bearbeitet werden.<br />");
 			return -1;
 		}
 		$count = $res_count->fetch_row();			
 		$rand = rand(0, ($count[0] - 1) );
 		
-		$final_query = $connection->query("SELECT heading, teaser, article FROM `Articles` LIMIT " . $rand . ", 1;");
+		$final_query = $connection->query("SELECT heading, teaser, article FROM `" . $category . "_Articles` LIMIT " . $rand . ", 1;");
+		
 		$result = $final_query->fetch_row();
 		$this->randArticleHeading = $result[0];
 		$this->randArticleTeaser = $result[1];

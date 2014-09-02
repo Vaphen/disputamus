@@ -35,7 +35,7 @@
         		  var textareaNewArticle = document.getElementById("textareaNewArticle");	// easy usage of textarea element
         		  var selectionStart = textareaNewArticle.selectionStart; // abbreviation for index of start of selection (numeric)
         		  var selectionEnd = textareaNewArticle.selectionEnd; // abbreviation for index of end of selection (numeric)
-            	  var selection = textareaNewArticle.value.substr(selectionStart, selectionEnd - selectionStart); // get selected text for concat (see below)
+              var selection = textareaNewArticle.value.substr(selectionStart, selectionEnd - selectionStart); // get selected text for concat (see below)
             	   /*
             	   * check if selection is already marked with formattingIndocator. if it is and we click again on 
             	   * the button, delete formatting.

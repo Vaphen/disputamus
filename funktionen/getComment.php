@@ -8,9 +8,13 @@
 		private $mysqli; // mysqli-Object initialized by constructor
 		private $NumOfReturnedComments = 0; // How many comments the SQL-Query had returned
 		
-		/* Prepare the whole mysqli-Object in the constructor for easy usage
-		 * Stop if any error occures */
-		function __construct($articleID){ // possible: own Object for all comments from specific articles discribed by the articleID
+		/* 
+		 * Prepare the whole mysqli-Object in the constructor for easy usage
+		 * Stop if any error occures 
+		 */
+		 
+		function __construct($category, $articleID){
+			 // possible: own Object for all comments from specific articles discribed by the articleID and category
 			 
 			 /*
 			 * check articleID for correctness or stop with error
@@ -29,13 +33,11 @@
 			 * if there are any exit constructor and stop commentfunction
 			 */
 			$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
-
-			 if($mysqli->connect_errno){
-                                echo("Die Verbindung zur Kommentar-Datenbank konnte nicht hergestellt werden.<br />");
-                                return -1;                      
-                        }
-
-			
+			if($mysqli->connect_errno){
+         	echo("Die Verbindung zur Kommentar-Datenbank konnte nicht hergestellt werden.<br />");
+         	return -1;                      
+         }
+     
 			/*
 			 * save parts of the comments from mysql-query into comment-part-arrays 
 			 */
@@ -46,7 +48,7 @@
 																heading, 
 																comment 
 												  			  FROM 
-																Comments 
+																" . $category . "_Comments 
 											      			  WHERE 
 																articleID=? 
 												  			  LIMIT 
@@ -54,10 +56,10 @@
 			{
 				$SelectCommentPartsPreparedQuery->bind_param("i", $this->articleID); // set articleID as integer to query
 				$SelectCommentPartsPreparedQuery->execute();
-				
-				// save number of returned Results for output (output is done with for-loop until reached NumOfReturnedComments)
-				$this->NumOfReturnedComments = $SelectCommentPartsPreparedQuery->num_rows;
 
+				// Needed for affected_rows (see below)
+				$SelectCommentPartsPreparedQuery->store_result();
+								
 				$SelectCommentPartsPreparedQuery->bind_result($pseudonym, $heading, $comment); // define comment-parts from query
 				/*
 				 * save as many items as returned by query into comment-parts-arrays 
@@ -67,13 +69,17 @@
 					array_push($this->heading, $heading);
 					array_push($this->comment, $comment);
 					//array_push($this->release, $release);
-				}
+				}			
 				$SelectCommentPartsPreparedQuery->close(); // close prepared query but not mysqli connection for possible reuse
 			}else{
 				/*
 				 * there was an error preparing the comment-parts-statement
 				 */
 				echo ("Es ist ein Fehler bei der Abfrage aufgetreten. Fehlernummer: 2");
+				
+				// save number of returned comments in case of failure selecting 2 (returns 1 or 0); needed for output for-loop
+				$this->NumOfReturnedComments = $SelectCommentPartsPreparedQuery->affected_rows;
+				
 // TODO: is the following close needed or is it closed by returning from this function??
 // Maybe destroy it in the destructor??
 				$mysqli->close(); // try to close connection before returning error
