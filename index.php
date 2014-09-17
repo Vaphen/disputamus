@@ -25,7 +25,7 @@
       </li>
 
       <li>
-        <?php
+            <?php
           /*
            * if elements belong to menuepoint "Kategorien" highlight it by giving it the id "menueSelected"
            */
