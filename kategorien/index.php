@@ -24,23 +24,12 @@
   <nav id="menue">
     <ul>
       <li>
-        <a href="/" id="<?php if($_SERVER['PHP_SELF'] == '/index.php') echo 'menueSelected'; ?>">Startseite</a>
+        <a href="/">Startseite</a>
       </li>
 
       <li>
-        <?php
-         /*
-          * if elements belong to menuepoint "Kategorien" highlight it by giving it the id "menueSelected"
-          */
-         if($_SERVER['PHP_SELF'] == "/kategorien/index.php"   ||
-            $_SERVER['PHP_SELF'] == "/kategorien/it/index.php"    ||
-            $_SERVER['PHP_SELF'] == "/kategorien/politik/index.php"    ||
-            $_SERVER['PHP_SELF'] == "/kategorien/sonstiges/index.php")
-              echo('<a href="/kategorien/" id="menueSelected">Kategorien</a>');
-            else 
-              echo('<a href="/kategorien/">Kategorien</a>');
-        ?>
-
+        <a href="/kategorien/" id="menueSelected">Kategorien</a>
+        
         <ul>
           <li>
             <a href="/kategorien/it/">IT</a>
@@ -57,8 +46,7 @@
       </li>
 
       <li id="menueRandArt">
-        <?php //if($_SERVER['PHP_SELF'] == '/zufaelligerArtikel/index.php') echo 'menueSelected'; ?><a href="/zufaelligerArtikel/"
-        id="xs">zufälliger Artikel</a>
+        <a href="/zufaelligerArtikel/">zufälliger Artikel</a>
       </li>
     </ul>
   </nav>
@@ -85,37 +73,38 @@
 
     <div id="randomArticle">
       <?php
-              $rand = rand(0, 2);
-              $category = array("IT", "Politics", "Other");
-              $randomCategory = $category[$rand]; // the random selected Category for Selection Query
-                    
-              include_once("funktionen/randContent.php");
-              $randContent = new RandArticle($randomCategory); // set the category of the random article
-                    
-              /*
-               * we should display the category in german
-               */
-              switch($randomCategory){
-                case "IT": 
-                  $germanCategoryOutput = "IT / Computer"; 
-                  break;
-                case "Politics":
-                  $germanCategoryOutput = "Regierung und Politik";
-                  break;
-                case "Other":
-                  $germanCategoryOutput = "Andere Themen";
-                  break;
-                default: $germanCategoryOutput = "Die Kategorie konnte nicht ermittelt werden."; break; // Error-Handling
-              }
-            ?>
+        $rand = rand(0, 2);
+        $category = array("IT", "Politics", "Other");
+        $randomCategory = $category[$rand]; // the random selected Category for Selection Query
+              
+        include_once("../funktionen/randContent.php");
+        $randContent = new RandArticle($randomCategory); // set the category of the random article
+              
+        /*
+         * we should display the category in german
+         */
+        switch($randomCategory){
+          case "IT": 
+            $germanCategoryOutput = "IT / Computer"; 
+            break;
+          case "Politics":
+            $germanCategoryOutput = "Regierung und Politik";
+            break;
+          case "Other":
+            $germanCategoryOutput = "Andere Themen";
+            break;
+          default: $germanCategoryOutput = "Die Kategorie konnte nicht ermittelt werden."; break; // Error-Handling
+        }
+      ?>
 
       <p class="randArtKategorie"><?=$germanCategoryOutput?>
       </p>
 
       <div class="randArtMain">
-        <h2><?=$randContent->
-         getRandArticleHeading()?&gt;</h2><?=$randContent->
-        getRandArticleTeaser()?&gt;
+        <h2>
+          <?=$randContent->getRandArticleHeading()?>
+        </h2>
+        <?=$randContent->getRandArticleTeaser()?>
       </div>
     </div>
   </div>
@@ -161,6 +150,5 @@
       </tbody>
     </table>
   </div>
-  
 </body>
 </html>
