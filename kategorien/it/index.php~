@@ -151,9 +151,9 @@
 
       <div class="randArtMain">
         <h2>
-       
+          <?=$randContent->getRandArticleHeading()?>
         </h2>
-      
+        <?=$randContent->getRandArticleTeaser()?>
       </div>
     </div>
   </div>

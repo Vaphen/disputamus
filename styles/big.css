@@ -1,7 +1,4 @@
 @media only screen and (min-width: 1501px) {
-  #randomArticle {
-	   display: inline-block;
-  }
   #main{
 	  width: 75%;
   }
@@ -11,9 +8,6 @@
 }
 
 @media only screen and (min-width: 761px) and (max-width: 1500px) {
-  #randomArticle {
-	   display: none;
-  }
   #main{
 	  width: 90%;
   }
@@ -27,25 +21,27 @@
 	padding: 0px;
 }
 
+
 body {
 	font-family: arial;
 	font-size: 1.1em;
-  background-color: #414141;
+ // background-color: #414141;
+ 	background-image: url('../bilder/background.png');
+ 	repeat;
 }
 
 #container {
-  overflow: auto;
   clear: both;
 }
 
 #menue {
+	background-color: rgba(100, 100, 100, 0.6);
 	height: auto;
   text-align: center;
-	border-bottom: 0.3em solid #f19c38;
   color: white;
 }
 
-#logo {   
+#logo {
   padding-top: 1em;
   padding-bottom: 1em;
   padding-left: 10px;
@@ -54,9 +50,9 @@ body {
 
 #logo img{
   padding: 0.5em 0.5em;
-  -moz-box-shadow:    inset 0 0 10px #000000;
-  -webkit-box-shadow: inset 0 0 10px #000000;
-  box-shadow:         inset 0 0 10px #000000;
+  -moz-box-shadow:    inset 0 0 10px #FFFFFF;
+  -webkit-box-shadow: inset 0 0 10px #FFFFFF;
+  box-shadow:         inset 0 0 10px #FFFFFF;
 }
 
 nav ul {
@@ -70,34 +66,29 @@ nav ul li {
 nav ul ul{
   display: none;
   position: absolute;
-  border-top: 0.3em solid #f19c38;
   z-index: 1000;
-  background-color: #414141;
+  background-color: rgba(0, 0, 0, 0.8);
 }  
 
 nav ul li ul li{
   display: list-item;
-  border-left: 1px solid #f19c38;
-  border-right: 1px solid #f19c38;
-}
-
-nav ul li ul:last-child {
-  border-bottom: 1px solid #f19c38;
+  border: 1px solid black;
 }
 
 nav ul li ul li:hover{
-	background-color: #757575;
+	background-color: #000000;
+	border: 1px solid white;
 }
 
 nav ul li:hover ul{
   display: block;
 }
 
-.highlight {
-  color: white;
-  text-shadow: 1px 1px 2px black;
+h1 {
+   color: white;
+   text-shadow: 1px 1px 2px black;
 	width: 92%;
-  font-size: 1em;
+   font-size: 1em;
 	padding-left: 4%;
 	padding-right: 4%;
 	border-radius: 5px;
@@ -105,84 +96,48 @@ nav ul li:hover ul{
 	padding-top: 10px;
 	padding-bottom: 10px;
 	margin-bottom: 20px;
-}
-
-.highlight{
 	background-color: #2E96FF;
 }
 
-#main{
-   padding: 20px 0px 20px 5%;
+
+
+
+
+article{
+   padding: 20px 5% 20px 5%;
    text-align: justify;
    float: left;
    color: lightgrey;
 }
 
-#randomArticle {
-  float: left;
-  width: 15%;     
-  margin-top: 20px;
-	margin-left: 3%;
-}
-
-#randArtHeading {
-   padding: 10px 1%;
-   color: white;
-   text-align: center;
-}
-
-.randArtKategorie {
-	height: 1.3em;
-	width: 88%;
-	color: white;
-	font-size: 1.5em;
-	text-align: center;
-	border: 1px solid white;
-	padding: 0px 10px;
-	border-top-right-radius: 10px;
-	border-top-left-radius: 10px;	
-}
-
-.randArtMain {
-   width: 88%;
-   padding: 10px 10px;
-   margin-bottom: 30px;
-   height: auto;
-   border: 1px solid white;
-   border-bottom-left-radius: 7px;
-   border-bottom-right-radius:7px; 
-   color: white;
-   text-align: left;
-}
-
-#footer{
+footer{
 	margin-top: 10px;
   width: 100%;
   font-size: 1em;   
   border-top: 0.3em solid #f19c38;
 }
 
-#footer table {
+footer table {
 	padding-top: 1%;
   margin: 0px auto;
 }
 
-#footer th {
+footer th {
   text-align: left;
   color: grey;
   padding-bottom: 5px;
 }
 
-#footer td {
+footer td {
   width: 10em;
   padding: 2px 0px;
 }
 
-#footer a {
+footer a {
 	color: white;
 }
 
-#footer a:hover{
+footer a:hover{
   text-decoration: underline;
 }
 
@@ -219,7 +174,7 @@ a {
 	background-color: #f19c38;
 }
 
-.keyword {
+i {
   color: white;
 }
 

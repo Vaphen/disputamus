@@ -24,7 +24,7 @@
   <nav id="menue">
     <ul>
       <li>
-        <a href="../index.php">Startseite</a>
+        <a href="./">Startseite</a>
       </li>
 
       <li>
